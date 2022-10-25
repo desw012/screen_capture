@@ -1,4 +1,5 @@
 // preload.js
+const { ipcRenderer } = require('electron')
 
 // All the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
@@ -15,10 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const fn_capture = () => {
         ipcRenderer.send('command:capture');
     }
-    document.querySelector('#capture').addEventListener('click', fn_capture);
+    document.querySelector('#capture')?.addEventListener('click', fn_capture);
 })
 
-const { ipcRenderer } = require('electron')
+
 
 ipcRenderer.on('SET_SOURCE', async (event, sourceId) => {
     try {

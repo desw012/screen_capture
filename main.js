@@ -55,13 +55,6 @@ app.on('window-all-closed', () => {
 ipcMain.on('command:capture', async () => {
         const displays = screen.getAllDisplays();
 
-        const map = new Map();
-        displays.forEach((display) => {
-            map.set(display.id, {
-                size : display.size
-            })
-        })
-
         for(let i = 0, length = displays.length; i < length; i++){
             const display = displays[i];
             const sources = await desktopCapturer.getSources({ types: ['screen'], thumbnailSize : display.size  });
