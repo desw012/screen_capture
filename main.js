@@ -83,15 +83,20 @@ ipcMain.on('command:capture', async () => {
                 y : display.bounds.y,
                 width : display.size.width,
                 height : display.size.height,
-                alwaysOnTop : true,
+                //alwaysOnTop : true,
                 frame : false,
-                fullscreen : true,
-                resizable : false
-                , webPreferences: {
+                //fullscreen : true,
+                //resizable : false,
+                webPreferences: {
                     preload: path.join(__dirname, 'preload.js'),
                     webSecurity : false
-                }
+                },
             });
+
+            window.on('ready-to-show', ()=>{
+                window.setFullScreen(true)
+            })
+
             const _path = path.resolve(__dirname, `${display.id}.png`);
             window.loadFile(`capture.html`, {query : {path:_path}});
 
@@ -99,7 +104,7 @@ ipcMain.on('command:capture', async () => {
         }
 
         windows.forEach((window, idx, windows)=>{
-            window.on('closed', ()=>{
+            window.on('closed', (e)=>{
                 windows[idx] = undefined;
                 windows.forEach((window, idx, windows)=>{
                     if(!window){
