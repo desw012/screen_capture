@@ -81,6 +81,10 @@ ipcMain.on('command:capture', async () => {
             const window = new BrowserWindow({
                 x : display.bounds.x,
                 y : display.bounds.y,
+                width : display.size.width,
+                height : display.size.height,
+                alwaysOnTop : true,
+                frame : false,
                 fullscreen : true,
                 resizable : false
                 , webPreferences: {
